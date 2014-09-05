@@ -31,11 +31,11 @@
     <!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-	<Resource name="jdbc/empath_common" auth="Container" type="javax.sql.DataSource"
-		maxActive="500" maxIdle="30" maxWait="10000" username="perceptum"
-		password="perceptum" driverClassName="com.mysql.jdbc.Driver"
-		validationQuery="select 1" url="jdbc:mysql://localhost:3306/empath_common" />
+	<Resource name="jdbc/stateless_session" auth="Container" type="javax.sql.DataSource"
+		maxActive="500" maxIdle="30" maxWait="10000" username="dev"
+		password="dev" driverClassName="com.mysql.jdbc.Driver"
+		validationQuery="select 1" url="jdbc:mysql://localhost:3306/stateless_session" />
 
-	<Environment name="empath-web-data-config-file" type="java.lang.String" value="${catalina.home}/../data-config/empath-web.properties" override="false"/>
+	<Environment name="stateless-session-data-config-file" type="java.lang.String" value="${catalina.home}/../data-config/stateless-session.properties" override="false"/>
 
 </Context>

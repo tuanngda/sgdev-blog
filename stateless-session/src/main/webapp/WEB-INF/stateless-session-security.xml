@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<http auto-config="true" create-session="stateless">
+
+		<!-- Unsecured Resources -->
+		<intercept-url pattern="/anonymous.html" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/auth/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+		<!-- Restricted Resources -->
+		<intercept-url pattern="/agent.html" access="ROLE_AGENT" />
+		<intercept-url pattern="/moderator.html" access="ROLE_MODERATOR" />
+		<intercept-url pattern="/site_admin.html" access="ROLE_SITE_ADMIN" />
+		<intercept-url pattern="/**" access="ROLE_AGENT,ROLE_MODERATOR,ROLE_SITE_ADMIN" />
+
+		<custom-filter position="PRE_AUTH_FILTER" ref="cookieSessionFilter" />
+
+        <form-login login-page="/auth/login"
+            always-use-default-target="true" default-target-url="/"
+			authentication-failure-url="/auth/login?login_error=1" />
+
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+        <authentication-provider ref="userAuthenticationProvider" />
+    </authentication-manager>
+
+</beans:beans>
